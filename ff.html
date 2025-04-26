@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top Up Diamond - AWGame.ID</title>
+  <style>
+    
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --card-bg: #f0f0f0;
+      --accent: #00f0ff;
+      --button-bg: #00f0ff;
+      --button-text: #000;
+    }
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --card-bg: #1e1e1e;
+      --button-bg: #00f0ff;
+      --button-text: #000;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+    }
+    header {
+      background-color: #2b2b2b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      background: linear-gradient(270deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+      background-size: 1400% 1400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rgbGlow 10s linear infinite;
+    }
+
+    @keyframes rgbGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: bold;
+    }
+    .hero {
+      background: url('https://i0.wp.com/www.smartprix.com/bytes/wp-content/uploads/2024/02/11.png?ssl=1') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero button {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #ff4c29;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .toggle {
+      cursor: pointer;
+      background: none;
+      border: 2px solid var(--accent);
+      border-radius: 50px;
+      padding: 5px 10px;
+      color: var(--accent);
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+    .form-section, .payment-section {
+      background: var(--card-bg);
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background: #fff;
+      color: #000;
+    }
+
+    .search-box {
+      margin-bottom: 10px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #999;
+      border-radius: 6px;
+      background: #fff;
+      color: #000;
+    }
+
+    .diamond-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .diamond-option {
+      background: #e0f7fa;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    body.dark .diamond-option {
+      background: #2c2c2c;
+    }
+
+    .diamond-option:hover {
+      border-color: var(--accent);
+    }
+
+    .diamond-option.selected {
+      border-color: var(--accent);
+    }
+
+    .diamond-option input[type="radio"] {
+      display: none;
+    }
+
+    .diamond-icon {
+      font-size: 24px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: var(--button-bg);
+      color: var(--button-text);
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    .popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--accent);
+      color: #000;
+      padding: 10px 15px;
+      border-radius: 8px;
+      display: none;
+      z-index: 999;
+    }
+
+    .popup.show {
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-end;
+      }
+      .toggle {
+        margin-top: 5px;
+      }
+    }
+  .payment-section {
+    padding: 20px;
+  }
+
+  .payment-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .payment-option {
+    border: 2px solid #444;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .payment-option img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 5px;
+  }
+
+  .payment-option input[type="radio"] {
+    display: none;
+  }
+
+  .payment-option input[type="radio"]:checked + .option-content {
+    border: 2px solid #00ffcc;
+    box-shadow: 0 0 8px #00ffcc80;
+  }
+
+  .option-content {
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.2s ease-in-out;
+    border: 2px solid transparent;
+  }
+
+<style>
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    margin-left: 1rem;
+  }
+  .hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+  }
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #2b2b2b;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1000;
+  }
+  .mobile-menu a {
+    color: white;
+    padding: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .mobile-menu.show {
+    display: flex;
+  }
+  @media (max-width: 768px) {
+    nav > a, .toggle {
+      display: none;
+    }
+    .hamburger {
+      display: flex;
+    }
+    nav {
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+  @media (max-width: 600px) {
+    .diamond-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .payment-options {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">AWGame.ID  ✨</div>
+    <nav>
+      <a href="index.html">Beranda</a>
+      <a href="topup.html">Top Up</a>
+      <a href="#">Hubungi</a>
+      <button class="toggle" onclick="toggleTheme()">🌗 Mode</button>
+    </nav>
+<div class="hamburger" onclick="toggleMobileMenu()">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+<div id="mobileMenu" class="mobile-menu">
+  <a href="index.html">Beranda</a>
+  <a href="topup.html">Top Up</a>
+  <a href="#">Hubungi</a>
+  <a href="#" onclick="toggleTheme()">🌗 Mode</a>
+</div>
+
+  </header>
+
+  <div class="hero">
+    <h1>Top Up Diamond Free Fire</h1>
+    <p>Proses instan dan aman. Pilih jumlah diamond favorit kamu!</p>
+  </div>
+
+  <div class="container">
+    <form action="proses.php" method="POST">
+      <div class="form-section">
+        <label for="userId">Masukkan ID</label>
+        <input type="text" id="userId" name="userId" required placeholder="Contoh: 12345678">
+      </div>
+
+      <div class="form-section">
+        <h3>Pilih Jumlah Diamond</h3>
+        <div class="search-box">
+            <input type="text" id="search" placeholder="Cari jumlah diamond...">
+        </div>
+        <div class="diamond-grid" id="diamondList">
+            <!-- Opsi diamond yang udah ada -->
+    </div>
+        <div class="diamond-grid" id="diamondList">
+          <label class="diamond-option">
+            <div class="diamond-icon">💎</div>
+            <div>860000 Diamond</div>
+            <div>Rp 2.000</div>
+            <input type="radio" name="diamond" value="86|20000">
+          </label>
+          <label class="diamond-option">
+            <div class="diamond-icon">💎</div>
+            <div>9999000 Diamond</div>
+            <div>Rp 9.000</div>
+            <input type="radio" name="diamond" value="172|39000">
+          </label>
+          <label class="diamond-option">
+            <div class="diamond-icon">💎</div>
+            <div>99957000 Diamond</div>
+            <div>Rp 19.000</div>
+            <input type="radio" name="diamond" value="257|59000">
+          </label>
+          <label class="diamond-option">
+            <div class="diamond-icon">💎</div>
+            <div>999940000 Diamond</div>
+            <div>Rp 29.000</div>
+            <input type="radio" name="diamond" value="344|79000">
+          </label>
+          <label class="diamond-option">
+            <div class="diamond-icon">💎</div>
+            <div>1 Diamond</div>
+            <div>Rp 1.199.000</div>
+            <input type="radio" name="diamond" value="344|79000">
+          </label>
+        </div>
+      </div>
+
+      <div class="payment-section">
+        <h3>Pilih Metode Pembayaran</h3>
+        <div class="payment-options">
+          <label class="payment-option">
+            <input type="radio" name="payment" value="qris" required>
+            <div class="option-content">
+              <img src="https://images.seeklogo.com/logo-png/39/1/quick-response-code-indonesia-standard-qris-logo-png_seeklogo-391791.png" alt="QRIS">
+              <div>QRIS</div>
+            </div>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment" value="gopay" required>
+            <div class="option-content">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFrWvjDvCmPUZK0fV0qTZKerXAiZLqjnTi1Q&s" alt="GoPay">
+              <div>GoPay</div>
+            </div>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment" value="ovo">
+            <div class="option-content">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsOljOn_hXUhep4HCbnfjZyz3jarYbKKXSow&s" alt="OVO">
+              <div>OVO</div>
+            </div>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment" value="dana">
+            <div class="option-content">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHbelUsAOasaznlczskMkFd2hgtFHaBt_aBw&s" alt="DANA">
+              <div>DANA</div>
+            </div>
+          </label>
+        </div>
+      </div>
+        <label for="whatsapp">Nomor WhatsApp</label>
+        <input type="text" id="whatsapp" name="whatsapp" required placeholder="Contoh: 08123456789">
+
+        <button type="submit" class="btn">Lanjut Bayar</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Dark mode toggle
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+
+    // Restore theme
+    window.onload = function() {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark');
+      }
+    };
+
+    // Diamond select highlight
+    const options = document.querySelectorAll('.diamond-option');
+    options.forEach(option => {
+      option.addEventListener('click', () => {
+        options.forEach(o => o.classList.remove('selected'));
+        option.classList.add('selected');
+        option.querySelector('input[type="radio"]').checked = true;
+      });
+    });
+
+    // Search filter
+    document.getElementById('search').addEventListener('input', function () {
+      const keyword = this.value.toLowerCase();
+      document.querySelectorAll('.diamond-option').forEach(option => {
+        const text = option.innerText.toLowerCase();
+        option.style.display = text.includes(keyword) ? 'block' : 'none';
+      });
+    });
+  </script>
+
+
+<script>
+  function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('show');
+  }
+</script>
+
+</body>
+</html>
